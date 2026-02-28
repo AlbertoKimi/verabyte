@@ -1,6 +1,7 @@
 CREATE DATABASE IF NOT EXISTS verabyte;
 USE verabyte;
 
+SET FOREIGN_KEY_CHECKS = 0;
 
 --TABLA: categorias 
 
@@ -48,8 +49,8 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 INSERT INTO `usuarios` (`Email`, `Password`, `Nombre`, `Apellidos`, `NIF`, `Telefono`, `Direccion`, `CodigoPostal`, `Localidad`, `Provincia`, `Avatar`) VALUES 
-('pablitoUser@test.com', '$argon2id$v=19$m=65536,t=10,p=1$Cg7N8RXXjA+62q/wDqIu2w$vL9L4T892Ctz6Ff8dC7kC/Wp8gR9nL7jE5qG2X8fS4A', 'Pablo', 'Perez', '12345678Z', '600123456', 'Calle Mayor 1', '28001', 'Madrid', 'Madrid', 'default.png'),
-('albertoUser@test.com', '$argon2id$v=19$m=65536,t=10,p=1$MhP82Xf9/T1nZ/7yCjKpKw$P3J+R1fQc4w9L7jE5qG2X8fS4AvL9L4T892Ctz6Ff8d', 'Alberto', 'Root', '87654321X', '600654321', 'Avenida Principal 2', '08001', 'Barcelona', 'Barcelona', 'default.png');
+('pablitoUser@test.com', '$argon2id$v=19$m=65536,t=10,p=1$WH2kaqrWkBI+T5UorEcGdA$ICkJiQVhlUZZBzWbbN4Gm7iTy0oT0SGVP9bJWdoFVHE', 'Pablo', 'Perez', '12345678Z', '600123456', 'Calle Mayor 1', '28001', 'Madrid', 'Madrid', 'default.png'),
+('albertoUser@test.com', '$argon2id$v=19$m=65536,t=10,p=1$lOjeaNhYSI8UWOgz1UdIDw$c/uoPfu8D2n3NcefwhD/ISwFpEW1tdxQ85/m/W9tliE', 'Alberto', 'Root', '87654321X', '600654321', 'Avenida Principal 2', '08001', 'Barcelona', 'Barcelona', 'default.png');
 UNLOCK TABLES;
 
 
@@ -155,3 +156,5 @@ CREATE TABLE `carrito` (
   FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`IdUsuario`) ON DELETE CASCADE,
   FOREIGN KEY (`id_producto`) REFERENCES `productos` (`IdProducto`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+SET FOREIGN_KEY_CHECKS = 1;
