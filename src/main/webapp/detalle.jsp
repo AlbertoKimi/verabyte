@@ -14,7 +14,8 @@
                         <p class="desc">${producto.descripcion}</p>
                         <p class="precio">${producto.precio} €</p>
 
-                        <form method="POST" action="carrito" style="width: 100%; max-width: 300px; margin: 0 auto;">
+                        <form method="POST" action="carrito"
+                            style="width: 100%; max-width: 300px; margin: 0 auto; text-align: center;">
                             <input type="hidden" name="idProducto" value="${producto.idProducto}">
                             <input type="hidden" name="nombre" value="${producto.nombre}">
                             <input type="hidden" name="precio" value="${producto.precio}">

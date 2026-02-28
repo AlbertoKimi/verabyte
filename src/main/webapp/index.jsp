@@ -106,7 +106,8 @@
                                             <h3 class="producto-nombre">${producto.nombre}</h3>
                                             <p class="producto-marca">${producto.marca}</p>
                                             <p class="producto-precio">${producto.precio} €</p>
-                                            <form method="POST" action="carrito" style="margin-top: 10px;">
+                                            <form method="POST" action="carrito"
+                                                style="margin-top: 10px; text-align: center;">
                                                 <input type="hidden" name="idProducto" value="${producto.idProducto}">
                                                 <input type="hidden" name="nombre" value="${producto.nombre}">
                                                 <input type="hidden" name="precio" value="${producto.precio}">
@@ -125,7 +126,7 @@
                 </div>
 
                 <div class="modal fade" id="pokemonModal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
                         <div class="modal-content">
                             <div class="modal-body" id="modalBody">
                                 <div class="loading-pixel">LOADING...</div>

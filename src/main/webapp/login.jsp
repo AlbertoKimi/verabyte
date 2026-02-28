@@ -11,7 +11,36 @@
                 <link rel="stylesheet" href="css/styles.css">
             </head>
 
-            <body class="flex-center-vh">
+            <body>
+
+                <header>
+                    <div class="logo">
+                        <a href="lista" class="header-logo-link">
+                            <img src="Imagenes/Logo-Tienda2.png" alt="Logo VeraByte" class="header-logo-img">
+                            VeraByte
+                        </a>
+                    </div>
+                    <nav>
+                        <c:choose>
+                            <c:when test="${not empty sessionScope.usuario}">
+                                <div class="header-user-info">
+                                    <img src="avatar?id=${sessionScope.usuario.userId}&t=<%= System.currentTimeMillis() %>"
+                                        alt="Avatar" class="header-avatar">
+                                    <span>Bienvenido, <strong>${sessionScope.usuario.username}</strong></span>
+                                </div>
+                                <a href="carrito.jsp" class="nav-cart-link">Mi Carrito</a>
+                                <a href="mis-pedidos" class="mr-15 font-bold">Mis Pedidos</a>
+                                <a href="UpdateUserServlet">Modificar Datos</a>
+                                <a href="logout">Cerrar Sesión</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="carrito.jsp" class="nav-cart-link">Mi Carrito</a>
+                                <a href="login.jsp">Iniciar Sesión</a>
+                                <a href="registro.jsp">Registrarse</a>
+                            </c:otherwise>
+                        </c:choose>
+                    </nav>
+                </header>
 
                 <div class="login-container">
                     <h2>Iniciar Sesión</h2>
@@ -33,7 +62,9 @@
                             <input type="password" id="password" name="password" required placeholder="********">
                         </div>
 
-                        <button type="submit" class="btn-submit">Entrar</button>
+                        <div class="text-center">
+                            <button type="submit" class="btn-submit">Entrar</button>
+                        </div>
                     </form>
 
                     <div class="links">

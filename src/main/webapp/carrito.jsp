@@ -43,103 +43,118 @@
                     </header>
 
                     <div class="carrito-container">
-                        <h2>Mi Carrito de Compras</h2>
+                        <h2
+                            style="font-family: var(--font-heading); text-transform: uppercase; border-bottom: var(--border-width) solid var(--border-dark); padding-bottom: 0.5rem; margin-bottom: 1rem; text-align: center;">
+                            Mi Carrito de Compras</h2>
 
                         <c:choose>
                             <c:when test="${not empty sessionScope.carrito and not empty sessionScope.carrito.items}">
-                                <table class="carrito-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Producto</th>
-                                            <th>Precio</th>
-                                            <th>Cantidad</th>
-                                            <th>Subtotal</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach var="item" items="${sessionScope.carrito.items}">
-                                            <tr id="row-${item.idProducto}">
-                                                <td>
-                                                    <div class="item-producto-container">
-                                                        <img src="${item.imagen}" alt="${item.nombre}"
-                                                            class="item-producto-imagen">
-                                                        <span>${item.nombre}</span>
-                                                    </div>
-                                                </td>
-                                                <td>${item.precio} €</td>
-                                                <td>
-                                                    <button class="btn-qty"
-                                                        onclick="updateCart('${item.idProducto}', 'disminuir')"
-                                                        <c:if test="${item.cantidad <= 1}">disabled</c:if>>-</button>
-                                                    <span id="qty-${item.idProducto}"
-                                                        class="padding-x-10">${item.cantidad}</span>
-                                                    <button class="btn-qty"
-                                                        onclick="updateCart('${item.idProducto}', 'aumentar')">+</button>
-                                                </td>
-                                                <td><span id="sub-${item.idProducto}">${item.precio *
-                                                        item.cantidad}</span>
-                                                    €</td>
-                                                <td>
-                                                    <button class="btn-remove"
-                                                        onclick="updateCart('${item.idProducto}', 'eliminar')">
-                                                        Eliminar</button>
-                                                </td>
+                                <div class="carrito-cart-wrapper" style="margin-bottom: 20px;">
+                                    <table class="carrito-table">
+                                        <thead>
+                                            <tr>
+                                                <th style="padding: 10px 15px;">Producto</th>
+                                                <th style="padding: 10px 15px;">Precio</th>
+                                                <th style="padding: 10px 15px;">Cantidad</th>
+                                                <th style="padding: 10px 15px;">Subtotal</th>
+                                                <th style="padding: 10px 15px;">Acciones</th>
                                             </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            <c:forEach var="item" items="${sessionScope.carrito.items}">
+                                                <tr id="row-${item.idProducto}">
+                                                    <td style="padding: 10px 15px;">
+                                                        <div class="item-producto-container">
+                                                            <img src="${item.imagen}" alt="${item.nombre}"
+                                                                style="width: 45px; height: 45px; object-fit: contain; border: 2px solid var(--border-dark); border-radius: 4px; background: #fff;">
+                                                            <span style="font-size: 0.95rem;">${item.nombre}</span>
+                                                        </div>
+                                                    </td>
+                                                    <td style="padding: 10px 15px;">${item.precio} €</td>
+                                                    <td style="padding: 10px 15px; white-space: nowrap;">
+                                                        <button class="btn-qty"
+                                                            style="padding: 2px 10px; font-size: 1rem;"
+                                                            onclick="updateCart('${item.idProducto}', 'disminuir')"
+                                                            <c:if test="${item.cantidad <= 1}">disabled</c:if>
+                                                            >-</button>
+                                                        <span id="qty-${item.idProducto}"
+                                                            style="display: inline-block; min-width: 30px; text-align: center; font-weight: bold; margin: 0 10px;">${item.cantidad}</span>
+                                                        <button class="btn-qty"
+                                                            style="padding: 2px 10px; font-size: 1rem;"
+                                                            onclick="updateCart('${item.idProducto}', 'aumentar')">+</button>
+                                                    </td>
+                                                    <td style="padding: 10px 15px;"><span
+                                                            id="sub-${item.idProducto}">${item.precio *
+                                                            item.cantidad}</span>
+                                                        €</td>
+                                                    <td style="padding: 10px 15px;">
+                                                        <button class="btn-remove"
+                                                            style="padding: 6px 12px; font-size: 0.85rem;"
+                                                            onclick="updateCart('${item.idProducto}', 'eliminar')">
+                                                            ELIMINAR</button>
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+                                        </tbody>
+                                    </table>
 
-                                <div class="resumen-container"
-                                    style="margin-top: 20px; margin-bottom: 30px; box-shadow: none; padding: 0;">
-                                    <div class="resumen-item">
-                                        <span class="resumen-item-label">Subtotal (Base Imponible)</span>
-                                        <span>
-                                            <span id="cart-subtotal">
-                                                <fmt:formatNumber value="${sessionScope.carrito.total}" type="number"
-                                                    minFractionDigits="2" maxFractionDigits="2" />
-                                            </span> €
-                                        </span>
-                                    </div>
-                                    <div class="resumen-item">
-                                        <span class="resumen-item-label">IVA (21%)</span>
-                                        <span>
-                                            <span id="cart-iva">
-                                                <fmt:formatNumber value="${sessionScope.carrito.total * 0.21}"
-                                                    type="number" minFractionDigits="2" maxFractionDigits="2" />
-                                            </span> €
-                                        </span>
-                                    </div>
-                                    <div class="resumen-total" style="margin-bottom: 20px;">
-                                        <span>TOTAL A PAGAR</span>
-                                        <span>
-                                            <span id="cart-total">
-                                                <fmt:formatNumber value="${sessionScope.carrito.total * 1.21}"
-                                                    type="number" minFractionDigits="2" maxFractionDigits="2" />
-                                            </span> €
-                                        </span>
+                                    <div class="resumen-container"
+                                        style="box-shadow: none; border: none; padding: 15px 0; margin: 0; background: transparent;">
+                                        <div class="resumen-item" style="margin-bottom: 5px; font-size: 0.9rem;">
+                                            <span class="resumen-item-label">Subtotal (Base Imponible)</span>
+                                            <span>
+                                                <span id="cart-subtotal">
+                                                    <fmt:formatNumber value="${sessionScope.carrito.total}"
+                                                        type="number" minFractionDigits="2" maxFractionDigits="2" />
+                                                </span> €
+                                            </span>
+                                        </div>
+                                        <div class="resumen-item" style="margin-bottom: 5px; font-size: 0.9rem;">
+                                            <span class="resumen-item-label">IVA (21%)</span>
+                                            <span>
+                                                <span id="cart-iva">
+                                                    <fmt:formatNumber value="${sessionScope.carrito.total * 0.21}"
+                                                        type="number" minFractionDigits="2" maxFractionDigits="2" />
+                                                </span> €
+                                            </span>
+                                        </div>
+                                        <div class="resumen-total"
+                                            style="margin-top: 15px; margin-bottom: 0; margin-left: auto; margin-right: 0; padding: 6px 15px; font-size: 1.1rem; max-width: 300px;">
+                                            <span style="margin-right: 20px;">TOTAL A PAGAR</span>
+                                            <span>
+                                                <span id="cart-total">
+                                                    <fmt:formatNumber value="${sessionScope.carrito.total * 1.21}"
+                                                        type="number" minFractionDigits="2" maxFractionDigits="2" />
+                                                </span> €
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="action-buttons">
-                                    <button type="button" class="btn-action btn-danger" onclick="vaciarCarrito()">Vaciar
+                                    <button type="button" class="btn-action btn-danger"
+                                        style="padding: 8px 16px; font-size: 0.85rem;" onclick="vaciarCarrito()">Vaciar
                                         Carrito</button>
-                                    <button class="btn-action btn-clear" onclick="window.location.href='lista'">Seguir
+                                    <button class="btn-action btn-volver" style="padding: 8px 16px; font-size: 0.85rem;"
+                                        onclick="window.location.href='lista'">Seguir
                                         Comprando</button>
 
                                     <c:choose>
                                         <c:when test="${not empty sessionScope.usuario}">
-                                            <form action="checkout" method="POST">
-                                                <button type="submit" class="btn-action btn-checkout">💳 Pagar y
+                                            <form action="checkout" method="POST" style="margin: 0;">
+                                                <button type="submit" class="btn-action btn-checkout"
+                                                    style="padding: 8px 16px; font-size: 0.85rem;">💳 Pagar y
                                                     Confirmar Pedido</button>
                                             </form>
                                         </c:when>
                                         <c:otherwise>
-                                            <div class="checkout-disabled-container">
-                                                <span class="checkout-disabled-text">Debes
+                                            <div class="checkout-disabled-container"
+                                                style="display: flex; align-items: center; gap: 10px;">
+                                                <span class="checkout-disabled-text" style="font-size: 0.8rem;">Debes
                                                     iniciar sesión para comprar</span>
                                                 <button type="button" class="btn-action btn-checkout-disabled"
-                                                    disabled>💳 Pagar y Confirmar Pedido</button>
+                                                    style="padding: 8px 16px; font-size: 0.85rem;" disabled>💳 PAGAR Y
+                                                    CONFIRMAR PEDIDO</button>
                                             </div>
                                         </c:otherwise>
                                     </c:choose>
