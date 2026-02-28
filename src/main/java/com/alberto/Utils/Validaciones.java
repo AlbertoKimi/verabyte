@@ -1,33 +1,64 @@
 package com.alberto.Utils;
 
+/**
+ * Clase utilitaria que provee métodos estáticos para validar el formato de varios
+ * tipos de información de usuario (email, contraseñas, teléfonos, textos planos).
+ */
 public class Validaciones {
 
-    // Validar formato de Email
+    /**
+     * Comprueba mediante Expresión Regular si un email luce correcto estructuralmente.
+     * @param email Cadena a validar.
+     * @return true si es válido, false en caso contrario.
+     */
     public static boolean esEmailValido(String email) {
         return email != null && email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,}$");
     }
 
-    // Validar seguridad de Contraseña
+    /**
+     * Comprueba mediante Expresión Regular si una contraseña cumple con reglas de complejidad.
+     * Mínimo 8 caracteres, al menos una mayúscula, una minúscula y un número.
+     * @param password Cadena a validar.
+     * @return true si es segura, false en caso contrario.
+     */
     public static boolean esPasswordSegura(String password) {
         return password != null && password.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$");
     }
 
-    // Validar longitud de Teléfono
+    /**
+     * Comprueba que un teléfono tenga exactamente 9 dígitos.
+     * @param telefono Cadena numérica.
+     * @return true si es válido, false en caso contrario.
+     */
     public static boolean esTelefonoValido(String telefono) {
         return telefono != null && telefono.matches("^\\d{9}$");
     }
 
-    // Validar longitud de Código Postal
+    /**
+     * Comprueba que un código postal tenga exactamente 5 dígitos.
+     * @param cp Cadena numérica.
+     * @return true si es válido, false en caso contrario.
+     */
     public static boolean esCPValido(String cp) {
         return cp != null && cp.matches("^\\d{5}$");
     }
 
-    // Validar nombre y apellidos (solo letras y espacios, máx 25 caracteres)
+    /**
+     * Comprueba que un texto (como un nombre o apellido) tenga solo letras y espacios,
+     * con una longitud no superior a 25 caracteres.
+     * @param texto Cadena de texto a analizar.
+     * @return true si pasa la validación, false en caso contrario.
+     */
     public static boolean esTextoValido(String texto) {
         return texto != null && texto.length() <= 25 && texto.matches("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$");
     }
 
-    // Sanitizar texto para evitar desbordamiento en BD
+    /**
+     * Permite acortar un texto (String truncation) para prevenir desbordamientos en columnas SQL.
+     * @param texto      Texto original completo.
+     * @param maxLength  Cota superior de longitud.
+     * @return           Texto truncado a la longitud máxima especificada.
+     */
     public static String sanitizarTexto(String texto, int maxLength) {
         if (texto == null) return "";
         if (texto.length() > maxLength) {

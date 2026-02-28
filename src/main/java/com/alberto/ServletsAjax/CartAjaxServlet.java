@@ -19,9 +19,23 @@ import com.alberto.Utils.CookieUtils;
 import com.alberto.DTO.UserSessionDTO;
 import com.alberto.DB.DAOs.CarritoDAO;
 
+/**
+ * Servlet AJAX para el manejo dinámico del carrito (aumentar, disminuir,
+ * eliminar items o vaciar por completo). Retorna respuestas en formato JSON.
+ */
 @WebServlet("/ajax/cart")
 public class CartAjaxServlet extends HttpServlet {
 
+    /**
+     * Recibe peticiones POST asíncronas para modificar el estado del carrito.
+     * Lee la acción deseada ('aumentar', 'disminuir', 'eliminar', 'vaciar')
+     * y el ID del producto, ajustando la sesión, cookies y BD según sea necesario.
+     *
+     * @param req  Petición HTTP con los parámetros 'action' y 'idProducto'.
+     * @param resp Respuesta HTTP que enviará el estado actualizado en formato JSON.
+     * @throws ServletException Excepción general del Servlet.
+     * @throws IOException      Excepción general de I/O.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("application/json");

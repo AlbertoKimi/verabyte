@@ -27,6 +27,11 @@ import com.alberto.Model.Usuario;
 import com.alberto.Utils.Validaciones;
 import com.alberto.Security.PasswordHasherArgon2;
 
+/**
+ * Servlet encargado de actualizar el perfil de usuario. Permite modificar
+ * campos de datos personales, cambiar contraseña (si especifica la antigua)
+ * y sustituir la imagen de avatar.
+ */
 @WebServlet("/UpdateUserServlet")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 5, 
@@ -44,6 +49,15 @@ public class UpdateUserServlet extends HttpServlet {
             "image/webp"
     );
 
+    /**
+     * Procesa la petición GET para cargar el formulario de actualización de datos.
+     * Autocompleta los campos con la información registrada en BD.
+     *
+     * @param request  La petición HTTP.
+     * @param response La respuesta HTTP (JSP del formulario).
+     * @throws ServletException Excepción de Servlets.
+     * @throws IOException      Excepción de I/O de red.
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -83,6 +97,16 @@ public class UpdateUserServlet extends HttpServlet {
         request.getRequestDispatcher("registro.jsp").forward(request, response);
     }
 
+    /**
+     * Procesa los datos del formulario de actualización desde una solicitud POST multipart.
+     * Realiza validaciones similares al registro guardando la nueva imagen, 
+     * encriptando la nueva clave (si se proporcionó y validó la anterior) y actualizando sesión y BD.
+     *
+     * @param request  Petición con texto multipart y/o archivos binarios (imagen).
+     * @param response Respuesta HTTP.
+     * @throws ServletException Excepción de Servlet.
+     * @throws IOException      Excepción general en entrada/salida.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -280,6 +304,12 @@ public class UpdateUserServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Retorna la extensión física correspondiente a un tipo de medio MIME.
+     *
+     * @param mime Formato del content type analizado.
+     * @return     La extensión lista con el punto (.png) o cadena vacía.
+     */
     private String obtenerExtension(String mime) {
         switch (mime) {
             case "image/jpeg": return ".jpg";

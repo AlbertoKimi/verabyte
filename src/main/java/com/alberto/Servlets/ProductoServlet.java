@@ -17,8 +17,21 @@ import java.util.ArrayList;
 
 import com.alberto.DB.Factoria.FactoryDAOS;
 
+/**
+ * Servlet principal que maneja la vista del catálogo de productos.
+ * Recibe y aplica filtros (categoría, marca, precio, nombre) al listado general.
+ */
 @WebServlet(urlPatterns = {"", "/lista", "/index", "/home"})
 public class ProductoServlet extends HttpServlet{
+    /**
+     * Procesa la solicitud GET para listar los productos en la página principal,
+     * aplicando los parámetros de filtrado si están presentes.
+     *
+     * @param req  La petición HTTP. Puede contener parámetros de filtros.
+     * @param resp La respuesta HTTP que carga el JSP del catálogo.
+     * @throws ServletException En caso de problema al mostrar la vista.
+     * @throws IOException      En caso de problema de I/O.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

@@ -15,12 +15,25 @@ import com.alberto.DB.DAOs.UsuariosDAO;
 import com.alberto.Model.Usuario;
 
 
+/**
+ * Servlet encargado de servir las imágenes de perfil (avatares) de los usuarios.
+ * Recibe el ID de un usuario, busca su imagen en el sistema de archivos y la devuelve
+ * como respuesta HTTP. Si no la encuentra, devuelve una imagen por defecto.
+ */
 @WebServlet("/avatar")
 public class AvatarServlet extends HttpServlet {
 
     private static final String RUTA_UPLOAD = System.getProperty("user.home") + File.separator + "app_uploads";
 
 
+    /**
+     * Procesa las peticiones HTTP GET para obtener el avatar de un usuario.
+     *
+     * @param req  La petición HTTP que contiene el parámetro 'id' del usuario.
+     * @param resp La respuesta HTTP con los bytes de la imagen y los headers adecuados.
+     * @throws ServletException Si ocurre un error específico del Servlet.
+     * @throws IOException      Si ocurre un error de entrada/salida al leer la imagen.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {

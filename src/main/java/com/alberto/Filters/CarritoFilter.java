@@ -23,6 +23,12 @@ import com.alberto.Utils.CookieUtils;
 
 import com.alberto.DB.Factoria.FactoryDAOS;
 
+/**
+ * Filtro para inicializar o recuperar el carrito de compras globalmente de forma transparente.
+ * Intercepta todas las peticiones web ("/*"). Si el usuario no tiene carrito
+ * en su sesión actual pero tiene una cookie válida de un carrito anterior, 
+ * reconstruye el estado del carrito en la sesión HTTP.
+ */
 @WebFilter("/*")
 public class CarritoFilter implements Filter {
 
@@ -30,6 +36,15 @@ public class CarritoFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 
+    /**
+     * Lógica de intercepción. Valida la existencia de atributos de sesión y cookies de carrito.
+     *
+     * @param request  Solicitud interceptada en la web.
+     * @param response Respuesta web asociada.
+     * @param chain    Continuación en la cadena de ejecución de filtros y Servlets.
+     * @throws IOException      En caso de error I/O.
+     * @throws ServletException En caso de problema en el request.
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {

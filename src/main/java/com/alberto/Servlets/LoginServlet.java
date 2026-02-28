@@ -19,16 +19,35 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.Cookie;
 
+/**
+ * Servlet que gestiona el inicio de sesión de los usuarios.
+ * Valida credenciales, inicializa la sesión HTTP, carga el carrito guardado
+ * previamente en base de datos y genera las cookies asociadas al navegador.
+ */
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 
     private AuthService authService;
 
+    /**
+     * Inicializa el Servlet preparando el servicio de autenticación {@link AuthService}.
+     *
+     * @throws ServletException Si falla la inicialización.
+     */
     @Override
     public void init() throws ServletException {
         this.authService = new AuthService();
     }
 
+    /**
+     * Procesa la solicitud GET para acceder a la página de login.
+     * Si el usuario ya tiene sesión, lo redirige al inicio.
+     *
+     * @param req  La petición HTTP.
+     * @param resp La respuesta HTTP que despacha al formulario de login.
+     * @throws ServletException En caso de problema en el despacho de vistas.
+     * @throws IOException      En error de red o I/O.
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
@@ -39,6 +58,17 @@ public class LoginServlet extends HttpServlet {
         req.getRequestDispatcher("login.jsp").forward(req, resp);
     }
 
+    /**
+     * Procesa la solicitud POST enviada desde el formulario de login.
+     * Verifica email y contraseña. Si son correctos, carga el carrito de la base
+     * de datos, une o sobreescribe con el de la sesión actual y redirige a la
+     * página correspondiente. En caso incorrecto, devuelve un error al JSP.
+     *
+     * @param req  Petición HTTP con los parámetros 'email' y 'password'.
+     * @param resp Respuesta HTTP.
+     * @throws ServletException En caso de error de servlet.
+     * @throws IOException      En caso de error al redirigir o despachar.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");

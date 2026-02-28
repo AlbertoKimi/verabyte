@@ -10,8 +10,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Clase de Acceso a Datos (DAO) para las operaciones relacionadas con el carrito de compra.
+ * Gestiona el guardado temporal, la recuperación de la sesión y la finalización de la compra.
+ */
 public class CarritoDAO {
 
+    /**
+     * Guarda el estado actual del carrito de un usuario en la base de datos.
+     * Elimina el carrito anterior y guarda los nuevos ítems de forma transaccional.
+     *
+     * @param idUsuario El ID del usuario propietario del carrito.
+     * @param carrito   El objeto CarritoDTO que contiene los artículos a guardar.
+     */
     public void guardarCarrito(int idUsuario, CarritoDTO carrito) {
         String sqlDelete = "DELETE FROM carrito WHERE id_usuario = ?";
         String sqlInsert = "INSERT INTO carrito (id_usuario, id_producto, cantidad) VALUES (?, ?, ?)";
@@ -60,6 +71,13 @@ public class CarritoDAO {
         }
     }
 
+    /**
+     * Recupera el carrito guardado en base de datos para un usuario específico.
+     * Realiza un JOIN con la tabla de productos para obtener nombres, precios e imágenes.
+     *
+     * @param idUsuario El ID del usuario.
+     * @return El {@link CarritoDTO} con todos los artículos recuperados.
+     */
     public CarritoDTO cargarCarrito(int idUsuario) {
         CarritoDTO carrito = new CarritoDTO();
         String sql = "SELECT ci.id_producto, p.Nombre, p.Precio, ci.cantidad, p.Imagen " +
@@ -89,6 +107,18 @@ public class CarritoDAO {
         return carrito;
     }
 
+    /**
+     * Finaliza la compra del usuario convirtiendo el carrito actual en un nuevo pedido.
+     * Ejecuta una serie de operaciones en una única transacción:
+     * 1. Crea el registro en la tabla 'pedidos'.
+     * 2. Recupera el ID del pedido generado.
+     * 3. Inserta cada ítem en la tabla 'lineaspedidos'.
+     * 4. Vacía el carrito del usuario.
+     *
+     * @param idUsuario El ID del usuario que finaliza la compra.
+     * @param carrito   El carrito que se convertirá en pedido.
+     * @return true si la compra se completó con éxito, false en caso contrario.
+     */
     public boolean finalizarCompra(int idUsuario, CarritoDTO carrito) {
         if (carrito == null || carrito.getItems().isEmpty()) {
             return false;

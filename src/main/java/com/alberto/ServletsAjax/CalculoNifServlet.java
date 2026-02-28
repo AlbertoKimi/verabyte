@@ -11,10 +11,23 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Servlet AJAX encargado de calcular la letra correspondiente a un número de DNI/NIE.
+ * Recibe el número por GET y devuelve un objeto JSON con la letra calculada.
+ */
 @WebServlet("/CalculoNifServlet")
 public class CalculoNifServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Procesa la petición GET de AJAX, verifica si el DNI es válido y
+     * responde con un JSON conteniendo la letra calculada o un mensaje de error.
+     *
+     * @param request  La petición HTTP con el parámetro 'dni'.
+     * @param response La respuesta HTTP con contenido tipo 'application/json'.
+     * @throws ServletException Excepción general del Servlet.
+     * @throws IOException      Excepción I/O en la red.
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String dniNumero = request.getParameter("dni");
         

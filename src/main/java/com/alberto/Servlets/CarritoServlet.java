@@ -18,9 +18,23 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.Cookie;
 
+/**
+ * Servlet que maneja la acción de añadir productos al carrito de compra.
+ * Extrae los detalles del producto de la petición POST, los añade a la
+ * sesión del usuario (y a la base de datos si el usuario está autenticado)
+ * y actualiza la cookie del carrito.
+ */
 @WebServlet("/carrito")
 public class CarritoServlet extends HttpServlet {
 
+    /**
+     * Procesa las peticiones POST para agregar un ítem al carrito.
+     *
+     * @param req  La petición con los datos del producto (id, nombre, precio, imagen).
+     * @param resp La respuesta HTTP (normalmente una redirección a otra vista).
+     * @throws ServletException En caso de un problema interno con el Servlet.
+     * @throws IOException      En caso de errores de I/O en la petición.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {

@@ -23,6 +23,11 @@ import com.alberto.Service.AuthService;
 import com.alberto.Model.Usuario;
 import com.alberto.Utils.Validaciones;
 
+/**
+ * Servlet que gestiona el registro de un nuevo usuario en la aplicación.
+ * Permite subir una imagen de avatar, valida la información del formulario
+ * y guarda al usuario utilizando {@link AuthService}.
+ */
 @WebServlet("/RegisterServlet")
 @MultipartConfig(
         fileSizeThreshold = 1024 * 1024 * 5, 
@@ -40,6 +45,16 @@ public class RegisterServlet extends HttpServlet {
             "image/webp"
     );
 
+    /**
+     * Procesa peticiones POST desde el formulario de registro.
+     * Recoge los datos multipart, valida campos y gestiona la creación del
+     * nuevo usuario y el guardado de la imagen correspondiente.
+     *
+     * @param request  Petición HTTP con datos del formulario.
+     * @param response Respuesta HTTP con la redirección adecuada.
+     * @throws ServletException En caso de error interno de Servlet (o lectura multipart).
+     * @throws IOException      En caso de errores de lectura/escritura de archivos e IO general.
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -197,6 +212,12 @@ public class RegisterServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Utilidad para obtener la extensión de archivo en formato String dado un tipo MIME de imagen.
+     *
+     * @param mime El tipo de contenido (ContentType).
+     * @return     La extensión (ej: ".jpg"), o cadena vacía si no aplica.
+     */
       private String obtenerExtension(String mime) {
         switch (mime) {
             case "image/jpeg": return ".jpg";

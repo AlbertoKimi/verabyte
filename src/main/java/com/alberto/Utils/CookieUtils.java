@@ -12,6 +12,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * Clase de utilidad para el manejo y decodificación de Cookies.
+ */
 public class CookieUtils {
 
     /**
@@ -82,7 +85,7 @@ public class CookieUtils {
      * Codifica un mapa en una cookie con un nombre específico.
      *
      * <p>Convierte cada clave y valor del mapa a String utilizando {@link #objToString(Object)}.
-     * La cookie resultante tendrá el formato: "key1=value1&key2=value2".</p>
+     * La cookie resultante tendrá el formato: "key1=value1&amp;key2=value2".</p>
      *
      * <p>Ejemplo de uso:</p>
      * <pre>
@@ -110,7 +113,7 @@ public class CookieUtils {
      * Codifica un mapa en una cadena de texto con formato clave=valor.
      *
      * <p>Claves y valores nulos se omiten. Claves complejas se convierten en String
-     * utilizando {@link #objToString(Object)}. Los pares se separan con '&'.</p>
+     * utilizando {@link #objToString(Object)}. Los pares se separan con '&amp;'.</p>
      *
      * <p>Ejemplo de uso:</p>
      * <pre>
@@ -119,7 +122,7 @@ public class CookieUtils {
      * map.put("dos", 2);
      *
      * String encoded = CookieUtils.encodeMapForCookie(map);
-     * System.out.println(encoded); // Salida: "uno=1&dos=2"
+     * System.out.println(encoded); // Salida: "uno=1&amp;dos=2"
      * </pre>
      *
      * @param map el mapa a codificar
@@ -151,7 +154,7 @@ public class CookieUtils {
      *
      * <p>Ejemplo de uso:</p>
      * <pre>
-     * Cookie cookie = ...; // Cookie con valor "1=10&2=20"
+     * Cookie cookie = ...; // Cookie con valor "1=10&amp;2=20"
      * List&lt;Persona&gt; personas = Arrays.asList(new Persona(1, "Juan"), new Persona(2, "Ana"));
      * Map&lt;Persona, Integer&gt; map = CookieUtils.decodeCookie(cookie, personas);
      *
@@ -174,7 +177,7 @@ public class CookieUtils {
      *
      * <p>Ejemplo de uso:</p>
      * <pre>
-     * String cookieValue = "1=10&2=20";
+     * String cookieValue = "1=10&amp;2=20";
      * List&lt;Persona&gt; personas = Arrays.asList(new Persona(1, "Juan"), new Persona(2, "Ana"));
      * Map&lt;Persona, Integer&gt; map = CookieUtils.decodeCookie(cookieValue, personas);
      *

@@ -15,12 +15,26 @@ import javax.servlet.http.HttpSession;
 import com.alberto.DTO.UserSessionDTO;
 
 
+/**
+ * Filtro de seguridad que intercepta peticiones a ciertas rutas protegidas
+ * (como UpdateUserServlet) y verifica si el usuario tiene una sesión activa.
+ * Si no está iniciada la sesión, redirige al login.
+ */
 @WebFilter(urlPatterns = {"/UpdateUserServlet"})
 public class AuthFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {}
 
+    /**
+     * Ejecuta el filtrado interceptando la solicitud.
+     *
+     * @param request  Petición del cliente.
+     * @param response Respuesta del servidor.
+     * @param chain    Cadena de filtros restantes en la tubería (pipeline).
+     * @throws IOException      Errores de despacho I/O.
+     * @throws ServletException Errores generados dentro del filtro.
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;

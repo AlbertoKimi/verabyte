@@ -16,9 +16,22 @@ import com.alberto.Utils.CookieUtils;
 
 import com.alberto.DB.Factoria.FactoryDAOS;
 
+/**
+ * Servlet que procesa la finalización de una compra (Checkout).
+ * Verifica que el usuario haya iniciado sesión y que el carrito no esté vacío.
+ * Luego utiliza el {@link CarritoDAO} para convertir el carrito en un pedido final.
+ */
 @WebServlet("/checkout")
 public class CheckoutServlet extends HttpServlet {
 
+    /**
+     * Procesa la solicitud POST para confirmar la compra.
+     *
+     * @param req  La solicitud HTTP.
+     * @param resp La respuesta HTTP con redirecciones de éxito o error.
+     * @throws ServletException En caso de un problema interno de Servlet.
+     * @throws IOException      En caso de problemas de I/O.
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession();

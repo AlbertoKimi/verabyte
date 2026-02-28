@@ -11,8 +11,19 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Clase de Acceso a Datos (DAO) para la gestión de los Pedidos.
+ * Permite listar los pedidos de un usuario y obtener los detalles (líneas) de un pedido concreto.
+ */
 public class PedidoDAO {
     
+    /**
+     * Enumera todos los pedidos realizados por un usuario específico,
+     * ordenados por fecha y por ID de forma descendente (los más recientes primero).
+     *
+     * @param idUsuario El ID del usuario del que se quieren obtener los pedidos.
+     * @return Una lista de objetos {@link PedidoDTO}.
+     */
     public List<PedidoDTO> listarPorUsuario(int idUsuario) {
         List<PedidoDTO> pedidos = new ArrayList<>();
         String sql = "SELECT * FROM pedidos WHERE IdUsuario = ? ORDER BY Fecha DESC, IdPedido DESC";
@@ -41,6 +52,14 @@ public class PedidoDAO {
         return pedidos;
     }
     
+    /**
+     * Obtiene todas las líneas (ítems) asociadas a un pedido determinado.
+     * Realiza un JOIN con la tabla de productos para incluir información detallada
+     * como el nombre, precio unitario e imagen de cada producto en el momento del pedido.
+     *
+     * @param idPedido El ID del pedido del que se quieren obtener los detalles.
+     * @return Una lista de objetos {@link ItemCarritoDTO} simulando las líneas del pedido.
+     */
     public List<ItemCarritoDTO> obtenerLineasPedido(int idPedido) {
         List<ItemCarritoDTO> lineas = new ArrayList<>();
         String sql = "SELECT lp.IdProducto, p.Nombre, p.Precio, lp.Cantidad, p.Imagen " +

@@ -10,9 +10,20 @@ import com.alberto.DB.DAOs.CategoriasDAO;
 import com.alberto.DB.Factoria.FactoryDAOS;
 
 
+/**
+ * Listener de contexto de la aplicación web.
+ * Intercepta los eventos de inicio y apagado del servidor web o despliegue.
+ * Se encarga de cargar las categorías en memoria (`application scope`) al inicio.
+ */
 @WebListener
 public class AppContextListener implements ServletContextListener {
 
+    /**
+     * Evento disparado al inicializar la aplicación.
+     * Carga de la BD la lista de categorías y la añade a los atributos globales de la aplicación.
+     *
+     * @param servletContextEvent Evento de contexto provisto por el contenedor.
+     */
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         
@@ -29,6 +40,12 @@ public class AppContextListener implements ServletContextListener {
         }
     }
 
+    /**
+     * Evento disparado al apagar o reiniciar la aplicación web.
+     * Limpia los atributos alojados en la memoria global.
+     *
+     * @param servletContextEvent Evento de contexto provisto por el contenedor.
+     */
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         ServletContext context = servletContextEvent.getServletContext();
