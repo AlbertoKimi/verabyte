@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS TiendaInformatica;
-USE TiendaInformatica;
+CREATE DATABASE IF NOT EXISTS verabyte;
+USE verabyte;
 
 
 --TABLA: categorias 
@@ -45,6 +45,12 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`IdUsuario`),
   UNIQUE KEY `Email_UNIQUE` (`Email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+LOCK TABLES `usuarios` WRITE;
+INSERT INTO `usuarios` (`Email`, `Password`, `Nombre`, `Apellidos`, `NIF`, `Telefono`, `Direccion`, `CodigoPostal`, `Localidad`, `Provincia`, `Avatar`) VALUES 
+('pablitoUser@test.com', '$argon2id$v=19$m=65536,t=10,p=1$Cg7N8RXXjA+62q/wDqIu2w$vL9L4T892Ctz6Ff8dC7kC/Wp8gR9nL7jE5qG2X8fS4A', 'Pablo', 'Perez', '12345678Z', '600123456', 'Calle Mayor 1', '28001', 'Madrid', 'Madrid', 'default.png'),
+('albertoUser@test.com', '$argon2id$v=19$m=65536,t=10,p=1$MhP82Xf9/T1nZ/7yCjKpKw$P3J+R1fQc4w9L7jE5qG2X8fS4AvL9L4T892Ctz6Ff8d', 'Alberto', 'Root', '87654321X', '600654321', 'Avenida Principal 2', '08001', 'Barcelona', 'Barcelona', 'default.png');
+UNLOCK TABLES;
 
 
 -- TABLA: productos

@@ -4,7 +4,7 @@
         auth="Container"
         type="javax.sql.DataSource"
         driverClassName="com.mysql.cj.jdbc.Driver"
-        url="jdbc:mysql://localhost:3282/TiendaInformatica"
+        url="jdbc:mysql://localhost:3282/verabyte"
         username="root"
         password="1234"
         maxTotal="20"
