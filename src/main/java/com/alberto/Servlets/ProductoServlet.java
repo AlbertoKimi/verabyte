@@ -47,6 +47,10 @@ public class ProductoServlet extends HttpServlet{
         if (precioMinStr != null && !precioMinStr.isEmpty()) {
             try {
                 precioMin = Double.parseDouble(precioMinStr);
+                if (precioMin < 0) {
+                    precioMin = 0.0;
+                    precioMinStr = "0";
+                }
             } catch (NumberFormatException e) {
 
             }
@@ -55,6 +59,10 @@ public class ProductoServlet extends HttpServlet{
         if (precioMaxStr != null && !precioMaxStr.isEmpty()) {
             try {
                 precioMax = Double.parseDouble(precioMaxStr);
+                if (precioMax < 0) {
+                    precioMax = 0.0;
+                    precioMaxStr = "0";
+                }
             } catch (NumberFormatException e) {
 
             }

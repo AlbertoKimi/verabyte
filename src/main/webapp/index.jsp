@@ -74,10 +74,10 @@
                         <div class="filter-group">
                             <label>Filtrar por precio (€)</label>
                             <div style="display: flex; gap: 5px;">
-                                <input type="number" name="precioMin" id="precioMin" placeholder="Mín."
+                                <input type="number" name="precioMin" id="precioMin" placeholder="Mín." min="0"
                                     value="${paramPrecioMin}" step="1"
                                     style="width: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; outline: none; transition: border-color 0.3s;">
-                                <input type="number" name="precioMax" id="precioMax" placeholder="Máx."
+                                <input type="number" name="precioMax" id="precioMax" placeholder="Máx." min="0"
                                     value="${paramPrecioMax}" step="1"
                                     style="width: 80px; padding: 10px; border: 1px solid #ddd; border-radius: 5px; outline: none; transition: border-color 0.3s;">
                             </div>
