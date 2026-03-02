@@ -79,6 +79,11 @@ public class CarritoServlet extends HttpServlet {
             req.getSession().setAttribute("message", "Error al añadir el producto al carrito.");
         }
         
-        resp.sendRedirect("lista");
+        String referer = req.getHeader("referer");
+        if (referer != null && !referer.isEmpty()) {
+            resp.sendRedirect(referer);
+        } else {
+            resp.sendRedirect("lista");
+        }
     }
 }
