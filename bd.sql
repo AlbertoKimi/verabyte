@@ -157,4 +157,23 @@ CREATE TABLE `carrito` (
   FOREIGN KEY (`id_producto`) REFERENCES `productos` (`IdProducto`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+-- Datos para pedidos
+LOCK TABLES `pedidos` WRITE;
+INSERT INTO `pedidos` (`IdPedido`, `Fecha`, `Estado`, `IdUsuario`, `Importe`, `Iva`) VALUES 
+(1, '2024-02-15', 'f', 1, 155.00, 32.55),
+(2, '2024-02-20', 'c', 1, 40.00, 8.40),
+(3, '2024-03-01', 'f', 2, 307.00, 64.47),
+(4, '2024-03-02', 'c', 2, 73.00, 15.33);
+UNLOCK TABLES;
+
+-- Datos para lineaspedidos
+LOCK TABLES `lineaspedidos` WRITE;
+INSERT INTO `lineaspedidos` (`IdPedido`, `IdProducto`, `Cantidad`) VALUES 
+(1, 1, 1),
+(1, 2, 1),
+(2, 1, 1),
+(3, 3, 1),
+(4, 26, 1);
+UNLOCK TABLES;
+
 SET FOREIGN_KEY_CHECKS = 1;
